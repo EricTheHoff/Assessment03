@@ -1,1 +1,13 @@
-<!-- This has been left intentionally empty -->
+{% extends "base.html.njk" %}
+
+{% block title %}
+Thank you!
+{% endblock %}
+
+{% block content %}
+<h1>Thank you, {{ name }}.</h1>
+<br>
+<div id="return-to-fossils">
+    <a href="/top-fossils">Return to the Fossils Page</a>
+</div>
+{% endblock %}

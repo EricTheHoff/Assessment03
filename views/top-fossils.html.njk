@@ -1,16 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Most Liked Fossils</title>
-  </head>
-  <body>
+{% extends "base.html.njk" %}
+
+{% block title %}
+Top Fossils
+{% endblock %}
+
+{% block content %}
+
+    <h1>Welcome, {{ name }}!</h1>
+    <h2 class="subtitle">Feel free to view our fossils and vote on your favorite!</h2>
     <div class="fossil-div">
-      <h3>{{ fossils[0].name }}</h3>
-      <h2>Liked {{ fossils[0].num_likes }} times.</h2>
-      <img src="{{ fossils[0].img }}" />
+
+          <div id="like-form">
+      <form action="/like-fossil" method="post">
+        <select name="liked-fossil" id="liked-fossil">
+          <option value="" selected disabled>--Please choose a fossil--</option>
+          <option value="aust" name="aust">Australopithecus</option>
+          <option value="quetz" name="quetz">Quetzal</option>
+          <option value="steg" name="steg">Stegosaurus</option>
+          <option value="trex" name="trex">Tyrannosaurus Rex</option>
+        </select>
+        <br>
+        <button type="submit">Like</button>
+      </form>
     </div>
-  </body>
-</html>
+
+      {% for key, value in fossils %}
+        <div>
+          <h3 class="base-text">{{ name }}, this is a {{ value.name }} fossil.</h3>
+          <h2 class="base-text">Liked {{ value.num_likes }} times.</h2>
+          <img src="{{ value.img }}" />
+        </div>
+      {% endfor %}
+
+    </div>
+
+{% endblock %}
