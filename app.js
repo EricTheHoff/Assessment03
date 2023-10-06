@@ -60,8 +60,7 @@ const OTHER_FOSSILS = [
   },
 ];
 
-// TODO: Replace this comment with your code
-
+//Homepage route. Checks the Express session to see if a name exists; if it does, go to /top-fossils. If not, render the homepage.
 app.get('/', (req, res) => {
   if (req.session.name) {
     res.redirect('/top-fossils')
@@ -70,12 +69,14 @@ app.get('/', (req, res) => {
   }
 })
 
+//Name route. Sends the name in a req.query, and we destructure to obtain that variable. We then save that variable to the session.
 app.get('/get-name', (req, res) => {
   const {name} = req.query
   req.session.name = name
   res.redirect('/top-fossils')
 })
 
+//Top Fossils route. Checks the session if a username exists; if it does, render the top fossils page and pass the MOST_LIKED_FOSSILS object and the session name to be used in nunjucks.
 app.get('/top-fossils', (req, res) => {
   if (req.session.name) {
     res.render('top-fossils.html.njk', {fossils: MOST_LIKED_FOSSILS, name: req.session.name})
@@ -84,6 +85,8 @@ app.get('/top-fossils', (req, res) => {
   }
 })
 
+//Route to receive form data from the Top Fossils page. Checks the body of the request to see the value to the 'liked-fossil' key. If it matches a certain key, then increment the like count for that fossil by 1.
+//Afterwards, render the thank you page and pass through the session name to be used in nunjucks.
 app.post('/like-fossil', (req, res) => {
 
   if(req.body['liked-fossil'] === 'aust') {
